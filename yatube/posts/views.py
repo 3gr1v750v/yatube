@@ -141,7 +141,8 @@ def add_comment(request, post_id):
 @login_required
 def follow_index(request):
     """
-    Страница с постами, на которые подписан текущий пользователь, отсоритированая по дате добавления поста.
+    Страница с постами, на которые подписан текущий пользователь,
+    отсоритированая по дате добавления поста.
     """
     user = get_object_or_404(User, username=request.user)
     subscriptions = user.follower.all()
@@ -161,6 +162,10 @@ def follow_index(request):
 
 @login_required
 def profile_follow(request, username):
+    """
+    Добавление подписок на авторов. Автор не может подписаться сам на себя.
+    А жаль, хорошего человека приятно иметь в ленте подписок.
+    """
     author = get_object_or_404(User, username=username)
     user = get_object_or_404(User, username=request.user)
 
@@ -172,6 +177,9 @@ def profile_follow(request, username):
 
 @login_required
 def profile_unfollow(request, username):
+    """
+    Функция удаления автора из подписок.
+    """
     author = get_object_or_404(User, username=username)
     user = get_object_or_404(User, username=request.user)
 
