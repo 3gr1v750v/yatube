@@ -1,0 +1,17 @@
+<!-- templates/posts/group_list.html -->
+{% extends 'base.html' %}
+{% block title %}
+  <title>Записи сообщества {{ group }}</title>
+{% endblock %}
+{% block content%}
+  <h1>{{ group }}</h1>
+  <p>
+    {{ group.description }}
+  </p>
+  <!-- Pytest требует, чтобы в теле html присутствовал цикл for. Если вынести
+    цикл for в includes, то Pytest покажет ошибку -->
+  {% for post in page_obj %}
+    {% include 'includes/article.html' %}
+  {% endfor %}
+  {% include 'posts/includes/paginator.html' %}
+{% endblock %}

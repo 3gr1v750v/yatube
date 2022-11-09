@@ -1,0 +1,16 @@
+<!-- index.html для group_list.html используют разные шаблоны footer по ТЗ.
+ см. "Шаблоны соответствуют дизайну" в задании-->
+
+<!-- для страниц сообществ -->
+{% if group %}
+  <footer class="page-footer font-small blue border-top">
+    <div class="footer-copyright text-center py-3">© {{ year }} Copyright
+      <p><span style="color:red">Ya</span>tube</p>
+    </div>
+  </footer>
+  <!-- для остальных страниц -->
+{% else %}
+  <footer class="border-top text-center py-3">
+    <p>© {{ year }} Copyright <span style="color:red">Ya</span>tube</p>
+  </footer>
+{% endif %}

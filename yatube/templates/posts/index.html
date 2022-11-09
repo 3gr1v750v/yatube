@@ -1,0 +1,15 @@
+<!-- templates/posts/index.html -->
+{% extends 'base.html' %}
+{% block title %}
+  <title>Последние обновления на сайте</title>
+{% endblock %}
+{% block content %}
+  <h1>Последние обновления на сайте</h1>
+  {% include 'includes/switcher.html' %}
+  <!-- Pytest требует, чтобы в теле html присутствовал цикл for. Если вынести
+    цикл for в includes, то Pytest покажет ошибку -->
+  {% for post in page_obj %}
+    {% include 'includes/article.html' %}
+  {% endfor %}
+  {% include 'posts/includes/paginator.html' %}
+{% endblock %}
