@@ -49,7 +49,9 @@ class Post(models.Model):
         verbose_name="Группа",
         help_text="Выберети группу для публикации",
     )
-    image = models.ImageField('Картинка', upload_to='posts/', blank=True)
+    image = models.ImageField(
+        verbose_name='Картинка', upload_to='posts/', blank=True, null=True
+    )
 
     def __str__(self):
         return self.text[:15]
@@ -102,3 +104,9 @@ class Follow(models.Model):
         related_name='following',
         verbose_name="Подписан на автора",
     )
+
+    class Meta:
+        unique_together = (
+            'user',
+            'author',
+        )

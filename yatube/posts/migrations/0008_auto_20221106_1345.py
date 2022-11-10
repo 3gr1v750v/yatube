@@ -13,6 +13,11 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='post',
             name='pub_date',
-            field=models.DateTimeField(auto_now_add=True, db_index=True, help_text='Введите дату публикации поста', verbose_name='Дата публикации'),
+            field=models.DateTimeField(
+                auto_now_add=True,
+                db_index=True,
+                help_text='Введите дату публикации поста',
+                verbose_name='Дата публикации',
+            ),
         ),
     ]

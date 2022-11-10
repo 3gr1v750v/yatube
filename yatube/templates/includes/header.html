@@ -23,7 +23,8 @@
           <!-- пункты меню видны только авторизованному пользователю -->
           {% if user.is_authenticated %}
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'posts:post_create' %}">
+              <a class="nav-link {% if view_name  == 'posts:post_create' %}active{% endif %}"
+                href="{% url 'posts:post_create' %}">
                 Новая запись
               </a>
             </li>
@@ -37,9 +38,9 @@
               <a class="nav-link link-light {% if view_name  == 'users:logout' %}active{% endif %}"
                 href="{% url 'users:logout' %}">Выйти</a>
             </li>
-            <li>
-              Пользователь: {{ user.username }}
-              <li>
+            <li class="nav-item">
+              <a class="nav-link disabled">Пользователь: {{ user.username }}</a>
+            </li>
           {% else %}
             <!-- конец пункты меню видны только авторизованному пользователю -->
             <!-- пункты меню видны только неавторизованному пользователю -->

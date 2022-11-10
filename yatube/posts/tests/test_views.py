@@ -382,18 +382,6 @@ class IndexPageCacheTest(DataBaseRecords):
 
 
 class PostFollowTests(DataBaseRecords):
-    # @classmethod
-    # def setUpClass(cls):
-    #     super().setUpClass()
-    # cls.author = User.objects.create_user(username='Author')
-    # cls.follower = User.objects.create_user(username='Follower')
-    # cls.follower_client = Client()
-    # cls.follower_client.force_login(cls.follower)
-
-    # cls.nonfollower = User.objects.create_user(username='Nonfollower')
-    # cls.nonfollower_client = Client()
-    # cls.nonfollower_client.force_login(cls.follower)
-
     def test_follow_and_unfollow(self):
         """
         Авторизованный пользователь может подписываться на других

@@ -58,6 +58,7 @@ class DataBaseRecords(TestCase):
             b'\x02\x00\x01\x00\x00\x02\x02\x0C'
             b'\x0A\x00\x3B'
         )
+
         self.uploaded = SimpleUploadedFile(
             name='small.gif', content=small_gif, content_type='image/gif'
         )
@@ -98,7 +99,12 @@ class PostCreateEditTests(DataBaseRecords):
         self.assertEqual(post.text, form_data['text'])
         self.assertEqual(post.group.pk, form_data['group'])
         self.assertEqual(post.author, self.author)
-        self.assertTrue(post.image.name, form_data['image'].name)
+        self.assertEqual(
+            post.image.name.split('/')[1], form_data['image'].name
+        )
+
+        # удаляем загруженную картинку, чтобы следующие тесты не дублировали
+        shutil.rmtree(TEMP_MEDIA_ROOT, ignore_errors=True)
 
     def test_create_post_by_guest_client(self):
         """
@@ -153,7 +159,12 @@ class PostCreateEditTests(DataBaseRecords):
         self.assertEqual(post.text, form_data['text'])
         self.assertEqual(post.group.pk, form_data['group'])
         self.assertEqual(post.author, self.author)
-        self.assertTrue(post.image.name, form_data['image'].name)
+        self.assertEqual(
+            post.image.name.split('/')[1], form_data['image'].name
+        )
+
+        # удаляем загруженную картинку, чтобы следующие тесты не дублировали
+        shutil.rmtree(TEMP_MEDIA_ROOT, ignore_errors=True)
 
 
 class CommentCreateTests(DataBaseRecords):

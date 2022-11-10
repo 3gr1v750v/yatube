@@ -1,10 +1,10 @@
 <!-- templates/posts/includes/switcher.html -->
 {% extends 'base.html' %}
 {% block title %}
-  <title>Подписки</title>
+  Подписки
 {% endblock %}
 {% block content%}
-{% include 'includes/switcher.html' %}
+  {% include 'includes/switcher.html' %}
   {% for post in page_obj %}
     {% include 'includes/article.html' %}
   {% endfor %}

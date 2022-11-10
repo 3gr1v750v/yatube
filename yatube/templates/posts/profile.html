@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block title %}
-  <title>{{ author.get_full_name }} профайл пользователя </title>
+  {{ author.get_full_name }} профайл пользователя
 {% endblock title %}
 {% block content %}
   <h1>Все посты пользователя {{ author.get_full_name }} </h1>

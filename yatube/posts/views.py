@@ -49,13 +49,13 @@ def profile(request, username):
     """
     Страница профиля пользователя со всеми постами пользователя.
     """
-    following = None
     author = get_object_or_404(User, username=username)
     posts = author.posts.select_related("group")
     posts_count = posts.count()
 
-    if request.user.is_authenticated:
-        following = Follow.objects.filter(user=request.user, author=author)
+    following = request.user.is_authenticated and Follow.objects.filter(
+        user=request.user, author=author
+    )
 
     context = {
         'author': author,
@@ -75,7 +75,7 @@ def post_detail(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
     posts_count: str = Post.objects.filter(author=post.author).count()
     comments = post.comments.select_related("author", "post")
-    form = CommentForm(request.POST or None)
+    form = CommentForm()
 
     context = {
         "post": post,
@@ -144,17 +144,8 @@ def follow_index(request):
     Страница с постами, на которые подписан текущий пользователь,
     отсоритированая по дате добавления поста.
     """
-    user = get_object_or_404(User, username=request.user)
-    subscriptions = user.follower.all()
-    subscription_list = []
-    for subscription in subscriptions:
-        subscription_list.extend(
-            Post.objects.filter(author=subscription.author)
-        )
 
-    posts = sorted(
-        subscription_list, key=operator.attrgetter('pub_date'), reverse=True
-    )
+    posts = Post.objects.filter(author__following__user=request.user)
 
     context = {'page_obj': get_page_obj(request, posts)}
     return render(request, 'posts/follow.html', context)
@@ -169,8 +160,11 @@ def profile_follow(request, username):
     author = get_object_or_404(User, username=username)
     user = get_object_or_404(User, username=request.user)
 
-    if author != request.user:
-        Follow.objects.get_or_create(user=user, author=author)
+    if (
+        author != request.user
+        and not Follow.objects.filter(user=user, author=author).exists()
+    ):
+        Follow.objects.create(user=user, author=author)
 
     return redirect('posts:follow_index')
 
@@ -181,9 +175,8 @@ def profile_unfollow(request, username):
     Функция удаления автора из подписок.
     """
     author = get_object_or_404(User, username=username)
-    user = get_object_or_404(User, username=request.user)
 
-    if Follow.objects.filter(user=user, author=author).exists():
-        Follow.objects.get(user=user, author=author).delete()
+    if Follow.objects.filter(user=request.user, author=author).exists():
+        Follow.objects.get(user=request.user, author=author).delete()
 
     return redirect('posts:follow_index')
