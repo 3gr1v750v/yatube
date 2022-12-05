@@ -1,13 +1,13 @@
-<!-- templates/posts/index.html -->
 {% extends 'base.html' %}
+{% comment %} templates/posts/index.html {% endcomment %}
 {% block title %}
   Последние обновления на сайте
 {% endblock %}
 {% block content %}
   <h1>Последние обновления на сайте</h1>
   {% include 'includes/switcher.html' %}
-  <!-- Pytest требует, чтобы в теле html присутствовал цикл for. Если вынести
-    цикл for в includes, то Pytest покажет ошибку -->
+  {% comment %} Pytest требует, чтобы в теле html присутствовал цикл for. Если вынести
+    цикл for в includes, то Pytest покажет ошибку {% endcomment %}
   {% for post in page_obj %}
     {% include 'includes/article.html' %}
   {% endfor %}

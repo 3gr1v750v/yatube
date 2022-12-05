@@ -1,4 +1,4 @@
-<!-- templates/users/signup.html -->
+{# templates/users/signup.html #}
 
 {% extends "base.html" %}
 {% block title %}
@@ -25,10 +25,8 @@
               </div>
             {% endfor %}
           {% endif %}
-
           <form method="post" action="{% url 'users:signup' %}">
             {% csrf_token %}
-
             {# Выводим поля в цикле, по отдельности #}
             {% for field in form %}
               <div class="form-group row my-3">
@@ -56,8 +54,8 @@
               </button>
             </div>
           </form>
-        </div> <!-- card body -->
-      </div> <!-- card -->
-    </div> <!-- col -->
-  </div> <!-- row -->
+        </div>
+      </div>
+    </div>
+  </div>
 {% endblock %}

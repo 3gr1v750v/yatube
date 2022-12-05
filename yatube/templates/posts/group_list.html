@@ -1,5 +1,5 @@
-<!-- templates/posts/group_list.html -->
 {% extends 'base.html' %}
+{% comment %} templates/posts/group_list.html {% endcomment %}
 {% block title %}
   аписи сообщества {{ group }}
 {% endblock %}
@@ -8,8 +8,8 @@
   <p>
     {{ group.description }}
   </p>
-  <!-- Pytest требует, чтобы в теле html присутствовал цикл for. Если вынести
-    цикл for в includes, то Pytest покажет ошибку -->
+{% comment %} Pytest требует, чтобы в теле html присутствовал цикл for. Если вынести
+    цикл for в includes, то Pytest покажет ошибку {% endcomment %}
   {% for post in page_obj %}
     {% include 'includes/article.html' %}
   {% endfor %}

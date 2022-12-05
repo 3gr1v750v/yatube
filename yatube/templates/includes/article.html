@@ -1,15 +1,15 @@
-<!-- for index.html; group_list.html; profile.html -->
+{% comment %} for index.html; group_list.html; profile.html {% endcomment %}
 {% load thumbnail %}
 <article>
   <ul>
-    <!-- На странице профиля имя пользователя в записи не нужно -->
+    {% comment %} На странице профиля имя пользователя в записи не нужно {% endcomment %}
     {% if not author %}
       <li>
         Автор: {{ post.author.get_full_name }}
       </li>
     {% endif %}
     <li>
-      <!-- Пример формата даты 27 сентября 2022 -->
+      {% comment %} Пример формата даты 27 сентября 2022 {% endcomment %}
       Дата публикации: {{ post.pub_date|date:"d E Y" }}
     </li>
   </ul>
@@ -22,11 +22,15 @@
   <a href="{% url 'posts:post_detail' post.pk %}">подробная информация</a>
 </article>
 {% if group %}
-  <!-- На странице группы, ссылка, повторяющая переход на группу не нужна -->
+{% comment %}
+На странице группы, ссылка, повторяющая переход на группу не нужна
+{% endcomment %}
 {% elif post.group %}
-  <!-- Для index.html.
+{% comment %}
+Для index.html.
 Пост может существовать без группы. Если у поста есть группа,
-отображается ссылка, ведущая на группу с перечнем всех постов в ней.-->
+отображается ссылка, ведущая на группу с перечнем всех постов в ней.
+{% endcomment %}
   <a href="{% url 'posts:group_list' post.group.slug %}"> все записи
     группы </a>
 {% endif %}

@@ -20,7 +20,7 @@
               Технологии
             </a>
           </li>
-          <!-- пункты меню видны только авторизованному пользователю -->
+          {% comment %} пункты меню видны только авторизованному пользователю {% endcomment %}
           {% if user.is_authenticated %}
             <li class="nav-item">
               <a class="nav-link {% if view_name  == 'posts:post_create' %}active{% endif %}"
@@ -42,8 +42,8 @@
               <a class="nav-link disabled">Пользователь: {{ user.username }}</a>
             </li>
           {% else %}
-            <!-- конец пункты меню видны только авторизованному пользователю -->
-            <!-- пункты меню видны только неавторизованному пользователю -->
+            {% comment %} конец пункты меню видны только авторизованному пользователю {% endcomment %}
+            {% comment %} пункты меню видны только неавторизованному пользователю {% endcomment %}
             <li class="nav-item">
               <a class="nav-link link-light {% if view_name  == 'users:login' %}active{% endif %}"
                 href="{% url 'users:login' %}">
@@ -55,7 +55,7 @@
                 href="{% url 'users:signup'%}">Регистрация</a>
             </li>
           {% endif %}
-          <!-- конец пункты меню видны только неавторизованному пользователю -->
+          {% comment %} конец пункты меню видны только неавторизованному пользователю {% endcomment %}
         </ul>
       </div>
     </nav>

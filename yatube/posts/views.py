@@ -71,7 +71,7 @@ def post_detail(request, post_id):
     общее количество постов автора.
     """
     post = get_object_or_404(Post, pk=post_id)
-    posts_count: str = Post.objects.filter(author=post.author).count()
+    posts_count: int = Post.objects.filter(author=post.author).count()
     comments = post.comments.select_related("author", "post")
     form = CommentForm()
 
@@ -156,13 +156,14 @@ def profile_follow(request, username):
     А жаль, хорошего человека приятно иметь в ленте подписок.
     """
     author = get_object_or_404(User, username=username)
-    user = get_object_or_404(User, username=request.user)
 
     if (
         author != request.user
-        and not Follow.objects.filter(user=user, author=author).exists()
+        and not Follow.objects.filter(
+            user=request.user, author=author
+        ).exists()
     ):
-        Follow.objects.create(user=user, author=author)
+        Follow.objects.create(user=request.user, author=author)
 
     return redirect('posts:follow_index')
 
@@ -174,7 +175,9 @@ def profile_unfollow(request, username):
     """
     author = get_object_or_404(User, username=username)
 
-    if Follow.objects.filter(user=request.user, author=author).exists():
-        Follow.objects.get(user=request.user, author=author).delete()
+    follow_qs = Follow.objects.filter(user=request.user, author=author)
+
+    if follow_qs.exists():
+        follow_qs.delete()
 
     return redirect('posts:follow_index')
