@@ -11,21 +11,23 @@
 ### Технологии
 
 - Python 3.7
-- Django 3.2
-- Django Rest Framework 3.12.4
-- Simple JWT
+- Django 2.2.16
+- Unittest
+- Pytest
 - SQLite3
+- CSS
+- HTML
 
 ## Как запустить проект:
 
 1. Скопируйте репозиторий и перейдите в него в командной строке:
 
 ```
-git clone https://github.com/EugeniGrivtsov/api_yamdb.git
+git clone git@github.com:EugeniGrivtsov/yatube.git
 ```
 
 ```
-cd api_yamdb
+cd yatube
 ```
 
 2. Создайте и активируйте виртуальное окружение:
@@ -51,15 +53,12 @@ pip install -r requirements.txt
 4. Выполните миграции:
 
 ```
-python manage.py migrate --run-syncdb
+python manage.py migrate
 ```
-5. Загрузите тестовые данные:
 
-```
-python manage.py load_data_from_csv
-```
-6. Запуститe проект:
+5. Запуститe проект:
 
 ```
 python manage.py runserver
 ```
+Сайт будет доступен по адресу http://localhost/ или http://127.0.0.1:8000/
