@@ -23,7 +23,7 @@
 1. Скопируйте репозиторий и перейдите в него в командной строке:
 
 ```
-git clone git@github.com:EugeniGrivtsov/yatube.git
+git clone git@github.com:3gr1v750v/yatube.git
 ```
 
 ```
